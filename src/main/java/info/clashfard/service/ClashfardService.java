@@ -11,13 +11,16 @@
  */
 package info.clashfard.service;
 
+import java.util.Collection;
+import java.util.List;
+
 import info.clashfard.domain.Clashfard;
 
 public interface ClashfardService {
 
-	void find(long id);
+	Clashfard find(long id);
 
-	void findAll();
+	List<Clashfard> findAll();
 
 	Clashfard add(Clashfard clashfard);
 

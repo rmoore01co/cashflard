@@ -11,6 +11,8 @@
  */
 package info.clashfard.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import info.clashfard.domain.Clashfard;
@@ -19,12 +21,12 @@ import info.clashfard.service.ClashfardService;
 @Service
 public class DefaultClashfardService implements ClashfardService {
 
-	public void find(final long id) {
-
+	public Clashfard find(final long id) {
+		return null;
 	}
 
-	public void findAll() {
-
+	public List<Clashfard> findAll() {
+		return null;
 	}
 
 	public Clashfard add(final Clashfard clashfard) {
