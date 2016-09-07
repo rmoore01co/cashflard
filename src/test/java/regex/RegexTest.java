@@ -38,6 +38,7 @@ public class RegexTest {
         assertEquals(";my;grandma;and;your;grandma", r.getSource());
     }
 
+    @Ignore
     @Test
     public void testCannotParseForwardSlash()
     {
@@ -56,7 +57,6 @@ public class RegexTest {
         assertEquals(";my;grandma;and;your;grandma", r.getSource());
     }
 
-    @Ignore
     @Test
     public void testCanParseWithForwardSlash()
     {

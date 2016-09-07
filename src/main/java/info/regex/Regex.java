@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class Regex {
 
     private static final Pattern pattern = Pattern
-            .compile("\"?(?:[\\w: '=]*,)+\\s*(?<message>[\\w\\s:'\"#.,=!\\-\\[\\]@]+ *)\"?\\s*(?<source>;.*)\\s*");
+            .compile("\"?(?:[\\w: /'=]*,)+\\s*(?<message>[\\w\\s:'\"#.,=!\\-\\[\\]@]+ *)\"?\\s*(?<source>;.*)\\s*");
 
     private String message;
     private String source;
