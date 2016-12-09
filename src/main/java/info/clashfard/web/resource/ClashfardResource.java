@@ -11,17 +11,13 @@
  */
 package info.clashfard.web.resource;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import info.clashfard.domain.Clashfard;
 import info.clashfard.service.ClashfardService;
+import info.clashfard.web.dto.ClashfardDto;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("/clashfard")
 @Consumes({MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -32,7 +28,14 @@ public class ClashfardResource {
 	private ClashfardService clashfardService;
 
 	@GET
+	@Produces({"application/xml", "application/json"})
 	public Clashfard getOne(@PathParam("id") final Long id) {
 		return clashfardService.find(id);
+	}
+
+	@POST
+	@Consumes({"application/xml", "application/json"})
+	public void save(final ClashfardDto dto) {
+		// TODO: implement - for now, this is only here to test out jaxrs-to-raml plugin
 	}
 }
