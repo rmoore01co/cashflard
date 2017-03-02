@@ -6,15 +6,44 @@
        xmlns:int="http://www.springframework.org/schema/integration"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-            http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms.xsd">
+            http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="tcp://localhost:61616"></property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="sample.queue" />
+    </bean>
+
+    <int-jms:outbound-channel-adapter connection-factory="connectionFactory" channel="outboundChannel" destination="queue" />
+
+    <int:object-to-string-transformer input-channel="inboundChannel" output-channel="outboundChannel" />
+
+    <int-jms:inbound-channel-adapter connection-factory="connectionFactory" channel="jmsChannel" destination="queue">
+        <int:poller fixed-rate="7000" />
+    </int-jms:inbound-channel-adapter>
 
     <int:gateway service-interface="info.clashfard.jms.PrinterGateway" default-request-channel="inboundChannel" />
 
+    <int:channel id="jmsChannel" />
     <int:channel id="inboundChannel" />
+    <int:channel id="outboundChannel" />
 
     <bean class="info.clashfard.service.impl.DefaultClashfardJmsService" id="jmsService" />
 
     <!-- will invoke the receive method on our inputChannel -->
-    <int:service-activator ref="jmsService" method="print" input-channel="inboundChannel" />
+    <int:service-activator ref="jmsService" method="print" input-channel="jmsChannel" />
+
+
+
+    <!--<int-jms:message-driven-channel-adapter-->
+            <!--connection-factory="connectionFactory"-->
+            <!--channel="jmsChannel"-->
+            <!--destination="queue" />-->
 
 </beans>

@@ -16,9 +16,8 @@ import org.springframework.messaging.Message;
 
 public class DefaultClashfardJmsService implements ClashfardJmsService {
     @Override
-    public String print(Message<?> message) {
-        System.out.println(String.format("service method message: %s", message.getPayload().toString()));
+    public void print(Message<?> message) {
+        System.out.println(String.format("Printing message from service: %s", message.getPayload().toString()));
         System.out.println(String.format("service method headers: %s", message.getHeaders()));
-        return String.format("Acknowledging message %s", message.getPayload().toString());
     }
 }
