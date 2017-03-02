@@ -19,6 +19,11 @@ public class DefaultClashfardJmsService implements ClashfardJmsService {
     public String print(Message<?> message) {
         System.out.println(String.format("Printing message from service: %s", message.getPayload().toString()));
         System.out.println(String.format("service method headers: %s", message.getHeaders()));
-        return String.format("Mesage %s worked", message.getPayload().toString());
+        return String.format("From the inbound gateway: %s", message.getPayload().toString());
+    }
+
+    @Override
+    public void printConsole(Message<?> message) {
+        System.out.println(String.format("Message was passed to printConsole from the outbound gateway: %s", message.getPayload().toString()));
     }
 }

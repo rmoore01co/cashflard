@@ -15,4 +15,5 @@ import org.springframework.messaging.Message;
 
 public interface ClashfardJmsService {
     String print(final Message<?> message);
+    void printConsole(Message<?> message);
 }

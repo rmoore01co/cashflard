@@ -12,7 +12,14 @@
 
     <int:object-to-string-transformer input-channel="inboundChannel" output-channel="outboundChannel" />
 
-    <int-jms:outbound-channel-adapter connection-factory="connectionFactory" channel="outboundChannel" destination="queue" />
+    <int-jms:outbound-gateway
+            connection-factory="connectionFactory"
+            request-destination="queue"
+            request-channel="outboundChannel"
+            reply-destination="replyQueue"
+            reply-channel="replyChannel"/>
+
+    <int:service-activator ref="jmsService" method="printConsole" input-channel="replyChannel" />
 
     <int-jms:inbound-gateway connection-factory="connectionFactory" request-destination="queue" request-channel="jmsChannel" default-reply-destination="replyQueue"/>
 

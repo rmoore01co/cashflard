@@ -38,24 +38,7 @@ public class JmsApplication implements ApplicationRunner {
     public void run(ApplicationArguments applicationArguments) throws Exception {
 
         // build the payloads
-        final Clashfard[] payloads = {
-                clashfard().withId(1).withName("one").build(),
-                clashfard().withId(2).withName("two").build(),
-                clashfard().withId(3).withName("three").build(),
-                clashfard().withId(4).withName("four").build(),
-                clashfard().withId(5).withName("five").build(),
-                clashfard().withId(6).withName("six").build(),
-                clashfard().withId(7).withName("seven").build(),
-                clashfard().withId(8).withName("eight").build(),
-                clashfard().withId(9).withName("nine").build(),
-                clashfard().withId(10).withName("ten").build()};
-
-        // asynchronous gateway demo
-        // by virtue of the gateway, we no longer rely on spring integration - we have no Messages or other
-        // SI specifics in our code
-        for (int x=0; x<payloads.length; x++) {
-            System.out.println(String.format("sending payload %s to JMS", payloads[x].toString()));
-            this.gateway.print(payloads[x]);
-        }
+        final Clashfard payload = clashfard().withId(1).withName("one").build();
+        this.gateway.print(payload);
     }
 }
