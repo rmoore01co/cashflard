@@ -19,7 +19,7 @@ public class BoilerplateProducer {
 
     public void produce() {
         try {
-            final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://0.0.0.0:61616");
+            final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
             final Connection connection = connectionFactory.createConnection();
             connection.start();
 

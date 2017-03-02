@@ -13,6 +13,8 @@ package info.clashfard.domain;
 
 public class Clashfard {
 
+	private Clashfard() {}
+
 	private long id;
 	private String name;
 	private String description;
@@ -37,8 +39,32 @@ public class Clashfard {
 		return description;
 	}
 
-	public void setDescription(final String description) {
-		this.description = description;
+	public static Builder clashfard() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private Clashfard clashfard = new Clashfard();
+
+		private Builder() {
+
+		}
+		public Builder withId(final long id) {
+			clashfard.id = id;
+			return this;
+		}
+		public Builder withName(final String name) {
+			clashfard.name = name;
+			return this;
+		}
+		public Builder withDescription(final String desc) {
+			clashfard.description = desc;
+			return this;
+		}
+		public Clashfard build() {
+			return clashfard;
+		}
+
 	}
 
 	@Override
@@ -67,5 +93,14 @@ public class Clashfard {
 				.append(name)
 				.append(description)
 				.toHashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "Clashfard{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", description='" + description + '\'' +
+				'}';
 	}
 }
