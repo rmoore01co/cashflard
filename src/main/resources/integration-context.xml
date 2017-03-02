@@ -8,18 +8,13 @@
             http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
             http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms.xsd">
 
-    <int:gateway service-interface="info.clashfard.jms.PrinterGateway" default-request-channel="printChannel" />
+    <int:gateway service-interface="info.clashfard.jms.PrinterGateway" default-request-channel="inboundChannel" />
 
-    <int:channel id="printChannel" >
-            <int:queue capacity="10"  />
-    </int:channel>
+    <int:channel id="inboundChannel" />
 
     <bean class="info.clashfard.service.impl.DefaultClashfardJmsService" id="jmsService" />
 
     <!-- will invoke the receive method on our inputChannel -->
-    <int:service-activator ref="jmsService" method="print" input-channel="printChannel">
-        <int:poller fixed-rate="5" time-unit="SECONDS" max-messages-per-poll="2"/>  <!-- polls the channel every 5 seconds, only pulls 2 at a time-->
-    </int:service-activator>
-
+    <int:service-activator ref="jmsService" method="print" input-channel="inboundChannel" />
 
 </beans>
