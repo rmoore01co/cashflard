@@ -12,7 +12,8 @@
 package info.clashfard.jms;
 
 import info.clashfard.domain.Clashfard;
+import org.springframework.util.concurrent.ListenableFuture;
 
 public interface PrinterGateway {
-    void print(final Clashfard clashfard);
+    ListenableFuture<String> print(final Clashfard clashfard);
 }

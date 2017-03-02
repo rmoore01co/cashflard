@@ -19,6 +19,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import static info.clashfard.domain.Clashfard.clashfard;
 
@@ -55,7 +57,16 @@ public class JmsApplication implements ApplicationRunner {
         // SI specifics in our code
         for (int x=0; x<payloads.length; x++) {
             System.out.println(String.format("sending payload %s", payloads[x].toString()));
-            this.gateway.print(payloads[x]);
+            final ListenableFuture<String> future = this.gateway.print(payloads[x]);
+            future.addCallback(new ListenableFutureCallback<String>() {
+                @Override
+                public void onFailure(Throwable throwable) {}
+
+                @Override
+                public void onSuccess(String s) {
+                    System.out.println(String.format("Success callback invoked: %s", s));
+                }
+            });
         }
     }
 }
